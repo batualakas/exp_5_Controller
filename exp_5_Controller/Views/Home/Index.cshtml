@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    
+    <div> 
+        <h1> Burası Index Sayfası</h1>
+        <a href="/home/indir">İndir</a><br />
+
+        <button type="button"id="btnGetir">Öğrencileri Getir</button>
+    </div>
+
+    <ul id="liste">
+        
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+ </script>
+    <script>
+        $('#btnGetir').click(function() { 
+            $(function () {
+                $.ajax({
+                    url: '/home/OgrenciListesiniGetir',
+                    //method: 'GET' type ile aynı şey,
+                    type: 'GET',
+                    // eğer istenen uygulama başarılı bir şekilde gelirse success kısmında result'a düşer.
+                    contentType: 'application/json',
+                    success: function (result) {
+                        debugger
+                        console.log(result);
+                        for (var i = 0; i < result.length; i++) {
+                            var item = result[i];
+                            $('#liste').append(`<li>${item.Ad} ${item.Soyad}</li>`);
+                        }
+                        //$.each() diğer yöntem daha öğrenmedik.
+                    }
+
+                });
+            });
+        })
+    </script>
+</body>
+</html>
